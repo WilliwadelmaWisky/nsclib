@@ -1,3 +1,12 @@
+pub fn new(values: &[f64]) -> Vec<f64> {
+    let mut v = zeros(values.len());
+    for i in 0..values.len() {
+        v[i] = values[i];
+    }
+
+    return v;
+}
+
 /// Returns a list of zeros with specified size
 pub fn zeros(len: usize) -> Vec<f64> {
     return vec![0.0; len];
@@ -5,7 +14,7 @@ pub fn zeros(len: usize) -> Vec<f64> {
 
 /// Returns a list of ones with specified size
 pub fn ones(len: usize) -> Vec<f64> {
-    return vec![0.0; len];
+    return vec![1.0; len];
 }
 
 /// Returns a list of values evenly separated
