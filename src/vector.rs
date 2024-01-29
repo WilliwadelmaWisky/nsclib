@@ -97,3 +97,36 @@ pub fn normalize(v: &Vec<f64>) -> Vec<f64> {
 
     return norm_v;
 }
+
+/// Dot product of two vectors
+/// 
+/// # Arguments
+/// - `v1`: First vector
+/// - `v2`: Second vector
+/// 
+/// # Examples
+/// 
+pub fn dot_product(v1: &Vec<f64>, v2: &Vec<f64>) -> f64 {
+    let mut dot = 0.0;
+
+    for i in 0..v1.len() {
+        dot += v1[i] * v2[i];
+    }
+
+    return dot;
+}
+
+/// Cross product of two 3d vectors (v1 x v2)
+/// 
+/// # Arguments
+/// - `v1`: First vector
+/// - `v2`: Second vector
+/// 
+/// # Examples
+pub fn cross_product(v1: &Vec<f64>, v2: &Vec<f64>) -> Vec<f64> {
+    return vec![
+        v1[1] * v2[2] - v1[2] * v2[1],
+        v1[2] * v2[0] - v1[0] * v2[2],
+        v1[0] * v2[1] - v1[1] * v2[0]
+    ];
+}
