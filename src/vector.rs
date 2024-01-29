@@ -1,7 +1,28 @@
+/// Create a vector with specified components
+/// 
+/// # Arguments
+/// - `values`: Components of a created vector
+/// 
+/// # Examples
 pub fn new(values: &[f64]) -> Vec<f64> {
     let mut v = zeros(values.len());
     for i in 0..values.len() {
         v[i] = values[i];
+    }
+
+    return v;
+}
+
+/// Create a vector with specified components (all whole numbers)
+/// 
+/// # Arguments
+/// - `values`: Components of a created vector¨
+/// 
+/// # Examples
+pub fn newi(values: &[i64]) -> Vec<f64> {
+    let mut v = zeros(values.len());
+    for i in 0..values.len() {
+        v[i] = values[i] as f64;
     }
 
     return v;
