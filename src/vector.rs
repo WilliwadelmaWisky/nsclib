@@ -28,6 +28,16 @@ pub fn newi(values: &[i64]) -> Vec<f64> {
     return v;
 }
 
+/// Clone a vector
+pub fn clone(vector: &Vec<f64>) -> Vec<f64> {
+    let mut v = zeros(vector.len());
+    for i in 0..vector.len() {
+        v[i] = vector[i];
+    }
+
+    return v;
+}
+
 /// Returns a list of zeros with specified size
 pub fn zeros(len: usize) -> Vec<f64> {
     return vec![0.0; len];

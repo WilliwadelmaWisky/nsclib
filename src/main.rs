@@ -4,18 +4,17 @@ pub mod vector;
 pub mod matrix;
 pub mod transform;
 pub mod uncertainty;
+pub mod constant;
 
 fn main() {
-    let a = vector::new(&[1.0, 2.0, 3.0]);
-    let b = vector::newi(&[2, -1, 1]);
-    
-    let dot = vector::dot_product(&a, &b);
-    println!("Dot: {dot}");
+    let point = vector::new(&[1.0, 2.0, 3.0]);
 
-    let cross = vector::cross_product(&a, &b);
-    println!("Cross: [{}, {}, {}]", cross[0], cross[1], cross[2]);
+    let res1 = differentiate::partial_df(|x| x[0].powi(2) * x[1] * x[2].powi(4), &point, 0, 0.001);
+    println!("{res1}");
 
-    let m = matrix::ones(2, 3);
-    let v = transform::transform(&m, &a);
-    println!("Transform: [{}, {}]", v[0], v[1]);
+    let res2 = differentiate::partial_df(|x| x[0].powi(2) * x[1] * x[2].powi(4), &point, 1, 0.001);
+    println!("{res2}");
+
+    let res3 = differentiate::partial_df(|x| x[0].powi(2) * x[1] * x[2].powi(4), &point, 2, 0.001);
+    println!("{res3}");
 }
