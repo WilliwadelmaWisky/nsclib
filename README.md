@@ -5,9 +5,11 @@ A rust library for numerical scientific computing.
 Work in Progress
 
 Supported features:
-- Basic vector operations
+- Linear algebra
 - Derivative + Partial derivative
 - Integral
+- Uncertainty propagation
+- Non-linear approximation
 
 Installation:
 - ...

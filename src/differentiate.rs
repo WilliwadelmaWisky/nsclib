@@ -13,6 +13,19 @@ pub fn df(f: fn(f64) -> f64, x: f64, h: f64) -> f64 {
     return 0.5 * (f(x + h) - f(x - h)) / h;
 }
 
+/// Get a numerically calculated second derivative of a function in a specific point
+/// 
+/// # Arguments
+/// - `f`: Function to derivate
+/// - `x`: Point to derivate
+/// - `h`: A small value
+/// 
+/// # Examples
+/// 
+pub fn d2f(f: fn(f64) -> f64, x: f64, h: f64) -> f64 {
+    return (f(x + h) - 2.0 * f(x) + f(x - h)) / h.powi(2);
+}
+
 /// Get a numerically calculated partial derivative of a function in a specific point
 /// 
 /// # Arguments
