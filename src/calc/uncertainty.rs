@@ -1,4 +1,4 @@
-use crate::differentiate;
+use crate::calc;
 
 
 /// Calculates an uncertainty using a standard uncertainty propagation method
@@ -15,7 +15,7 @@ pub fn calc_standard(f: fn(&Vec<f64>) -> f64, point: &Vec<f64>, err: &Vec<f64>) 
     let h = 0.00001;
 
     for i in 0..err.len() {
-        let df = differentiate::partial_df(f, point, i, h);
+        let df = calc::partial_df(f, point, i, h);
         uncertainty += (df * err[i]).powi(2);
     }
 
