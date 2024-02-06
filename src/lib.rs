@@ -35,16 +35,35 @@ pub fn d2f(f: fn(f64) -> f64, x: f64, h: f64) -> f64 {
 /// - `f`: Function to derivate
 /// - `x`: Point to derivate
 /// - `axis`: Partial derivative index
-/// - `h`: A small value
 /// 
 /// # Examples
 /// 
-pub fn partial_df(f: fn(&Vec<f64>) -> f64, x: &Vec<f64>, axis: usize, h: f64) -> f64 {
+pub fn partial_df(f: fn(&Vec<f64>) -> f64, x: &Vec<f64>, axis: usize) -> f64 {
+    let h = 0.000_000_01;
     let mut xplus = copy(x);
     xplus[axis] += h;
     let mut xminus = copy(x);
     xminus[axis] -= h;
     return 0.5 * (f(&xplus) - f(&xminus)) / h;
+}
+
+/// Get a numerically calculated gradient of a function in a specific point
+/// 
+/// # Arguments
+/// - `f`: Function to derivate
+/// - `x`: Point to derivate
+/// 
+/// # Examples
+/// 
+pub fn gradient(f: fn(&Vec<f64>) -> f64, x: &Vec<f64>) -> Vec<f64> {
+    let arg_count = x.len();
+    let mut grad = zeros(arg_count);
+
+    for i in 0..arg_count {
+        grad[i] = partial_df(f, x, i);
+    }
+
+    return grad;
 }
 
 

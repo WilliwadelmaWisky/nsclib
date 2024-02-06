@@ -10,12 +10,11 @@ use crate::partial_df;
 /// 
 /// # Examples
 /// 
-pub fn calc_standard(f: fn(&Vec<f64>) -> f64, point: &Vec<f64>, err: &Vec<f64>) -> f64 {
+pub fn standard(f: fn(&Vec<f64>) -> f64, point: &Vec<f64>, err: &Vec<f64>) -> f64 {
     let mut uncertainty = 0.0;
-    let h = 0.00001;
 
     for i in 0..err.len() {
-        let df = partial_df(f, point, i, h);
+        let df = partial_df(f, point, i);
         uncertainty += (df * err[i]).powi(2);
     }
 
@@ -30,6 +29,6 @@ pub fn calc_standard(f: fn(&Vec<f64>) -> f64, point: &Vec<f64>, err: &Vec<f64>) 
 /// - `err`: List of uncertainties of variables in f
 /// 
 /// # Examples
-pub fn calc_minmax(_f: fn(&Vec<f64>) -> f64, _point: &Vec<f64>, _err: &Vec<f64>) -> f64 {
+pub fn minmax(_f: fn(&Vec<f64>) -> f64, _point: &Vec<f64>, _err: &Vec<f64>) -> f64 {
     return 0.0;
 }
