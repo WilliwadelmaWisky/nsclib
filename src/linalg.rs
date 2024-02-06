@@ -1,3 +1,36 @@
+/// Operate a vector with a matrix
+/// 
+/// # Arguments
+/// - `m`: Transformation matrix
+/// - `v`: Vector to transform
+/// 
+/// # Examples
+pub fn transform(m: &Vec<Vec<f64>>, v: &Vec<f64>) -> Vec<f64> {
+    let rows = m.len();
+    let mut result = zeros(rows);
+
+    for i in 0..rows {
+        let row = &m[i];
+        result[i] = dot_product(row, v);
+    }
+
+    return result;
+}
+
+
+/// Create a matrix of zeros
+pub fn mzeros(rows: usize, cols: usize) -> Vec<Vec<f64>> {
+    let row = zeros(cols);
+    return vec![row; rows];
+}
+
+/// Create a matrix of ones
+pub fn mones(rows: usize, cols: usize) -> Vec<Vec<f64>> {
+    let row = ones(cols);
+    return vec![row; rows];
+}
+
+
 /// Create a vector with specified components
 /// 
 /// # Arguments
