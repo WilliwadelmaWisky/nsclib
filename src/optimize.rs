@@ -14,7 +14,7 @@ pub fn newton(f: fn(f64) -> f64, x0: f64, max_iteration: usize) -> f64 {
     let mut x = x0;
 
     for _ in 0..max_iteration {
-        let xi = x - f(x) / df(f, x, tolerance);
+        let xi = x - f(x) / df(f, x);
         if (xi - x).abs() <= tolerance {
             break;
         }

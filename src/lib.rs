@@ -8,11 +8,11 @@ pub mod uncertainty;
 /// # Arguments
 /// - `f`: Function to derivate
 /// - `x`: Point to derivate
-/// - `h`: A small value
 /// 
 /// # Examples
 /// 
-pub fn df(f: fn(f64) -> f64, x: f64, h: f64) -> f64 {
+pub fn df(f: fn(f64) -> f64, x: f64) -> f64 {
+    let h = 0.000_001;
     return 0.5 * (f(x + h) - f(x - h)) / h;
 }
 
@@ -21,11 +21,11 @@ pub fn df(f: fn(f64) -> f64, x: f64, h: f64) -> f64 {
 /// # Arguments
 /// - `f`: Function to derivate
 /// - `x`: Point to derivate
-/// - `h`: A small value
 /// 
 /// # Examples
 /// 
-pub fn d2f(f: fn(f64) -> f64, x: f64, h: f64) -> f64 {
+pub fn d2f(f: fn(f64) -> f64, x: f64) -> f64 {
+    let h = 0.000_001;
     return (f(x + h) - 2.0 * f(x) + f(x - h)) / h.powi(2);
 }
 
@@ -39,7 +39,7 @@ pub fn d2f(f: fn(f64) -> f64, x: f64, h: f64) -> f64 {
 /// # Examples
 /// 
 pub fn partial_df(f: fn(&Vector) -> f64, x: &Vector, axis: usize) -> f64 {
-    let h = 0.000_000_01;
+    let h = 0.000_001;
     let mut xplus = x.clone();
     xplus.set(axis, xplus.get(axis) + h);
     let mut xminus = x.clone();
