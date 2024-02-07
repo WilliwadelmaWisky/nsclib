@@ -38,12 +38,12 @@ pub fn d2f(f: fn(f64) -> f64, x: f64, h: f64) -> f64 {
 /// 
 /// # Examples
 /// 
-pub fn partial_df(f: fn(&Vec<f64>) -> f64, x: &Vec<f64>, axis: usize) -> f64 {
+pub fn partial_df(f: fn(&Vector) -> f64, x: &Vector, axis: usize) -> f64 {
     let h = 0.000_000_01;
-    let mut xplus = copy(x);
-    xplus[axis] += h;
-    let mut xminus = copy(x);
-    xminus[axis] -= h;
+    let mut xplus = x.clone();
+    xplus.set(axis, xplus.get(axis) + h);
+    let mut xminus = x.clone();
+    xminus.set(axis, xminus.get(axis) - h);
     return 0.5 * (f(&xplus) - f(&xminus)) / h;
 }
 
@@ -55,15 +55,25 @@ pub fn partial_df(f: fn(&Vec<f64>) -> f64, x: &Vec<f64>, axis: usize) -> f64 {
 /// 
 /// # Examples
 /// 
-pub fn gradient(f: fn(&Vec<f64>) -> f64, x: &Vec<f64>) -> Vec<f64> {
-    let arg_count = x.len();
-    let mut grad = zeros(arg_count);
+pub fn gradient(f: fn(&Vector) -> f64, x: &Vector) -> Vector {
+    let arg_count = x.length();
+    let mut grad = Vector::zeros(arg_count);
 
     for i in 0..arg_count {
-        grad[i] = partial_df(f, x, i);
+        grad.set(i, partial_df(f, x, i));
     }
 
     return grad;
+}
+
+/// Get a divergence of a function in a specific point
+/// 
+/// # Arguments
+/// - `f`: Function
+/// - `x`: Point
+pub fn divergence(f: fn(&Vector) -> f64, x: &Vector) -> f64 {
+    let grad = gradient(f, x);
+    return grad.sum();
 }
 
 

@@ -1,4 +1,4 @@
-use crate::partial_df;
+use crate::{partial_df, Vector};
 
 
 /// Calculates an uncertainty using a standard uncertainty propagation method
@@ -10,12 +10,13 @@ use crate::partial_df;
 /// 
 /// # Examples
 /// 
-pub fn standard(f: fn(&Vec<f64>) -> f64, point: &Vec<f64>, err: &Vec<f64>) -> f64 {
+pub fn standard(f: fn(&Vector) -> f64, point: &Vector, err: &Vector) -> f64 {
+    let arg_count = point.length();
     let mut uncertainty = 0.0;
 
-    for i in 0..err.len() {
+    for i in 0..arg_count {
         let df = partial_df(f, point, i);
-        uncertainty += (df * err[i]).powi(2);
+        uncertainty += (df * err.get(i)).powi(2);
     }
 
     return uncertainty.sqrt();
