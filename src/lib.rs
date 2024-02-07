@@ -132,7 +132,7 @@ pub fn zeros(len: usize) -> Vec<f64> {
 /// 
 /// # Examples
 /// 
-pub fn list(values: &[f64]) -> Vec<f64> {
+pub fn array(values: &[f64]) -> Vec<f64> {
     let mut v = zeros(values.len());
     for i in 0..values.len() {
         v[i] = values[i];
@@ -143,8 +143,9 @@ pub fn list(values: &[f64]) -> Vec<f64> {
 
 
 /// Vector
+#[derive(Clone)]
 pub struct Vector {
-    x: Vec<f64>
+    components: Vec<f64>
 }
 
 impl Vector {
@@ -161,20 +162,94 @@ impl Vector {
             component_list[i] = x[i];
         }
 
-        return Vector { x: component_list };
+        return Vector { components: component_list };
+    }
+
+    /// Create a vector of zeros with specified length (0, 0, ..., 0)
+    /// 
+    /// # Arguments
+    /// - `length`: Length of a vector
+    pub fn zeros(length: usize) -> Vector {
+        let component_list = vec![0.0; length];
+        return Vector { components: component_list };
+    }
+
+    /// Create a vector of ones with specified length (1, 1, ..., 1)
+    /// 
+    /// # Arguments
+    /// - `length`: Length of a vector
+    pub fn ones(length: usize) -> Vector {
+        let component_list = vec![1.0; length];
+        return Vector { components: component_list };
+    }
+
+    /// Get a number of components in a vector
+    pub fn length(&self) -> usize {
+        return self.components.len();
+    }
+
+    pub fn get(&self, index: usize) -> f64 {
+        return self.components[index];
+    }
+
+    pub fn set(&mut self, index: usize, val: f64) {
+        self.components[index] = val;
     }
 
     /// Turn vector to a string, format `"[x1, x2, x3, ...]"`
     pub fn to_string(&self) -> String {
         let mut s = "[".to_owned();
-        for i in 0..self.x.len() {
-            s.push_str(&self.x[i].to_string());
-            if i < self.x.len() - 1 {
+        for i in 0..self.components.len() {
+            s.push_str(&self.components[i].to_string());
+            if i < self.components.len() - 1 {
                 s.push_str(", ");
             }
         }
 
-        s.push_str("]");
+        s.push(']');
+        return s;
+    }
+
+    /// Calculate a sum of all components in the vector
+    pub fn sum(&self) -> f64 {
+        let mut sum = 0.0;
+        for i in 0..self.length() {
+            sum += self.get(i);
+        }
+
+        return sum;
+    }
+}
+
+#[derive(Clone)]
+pub struct Matrix {
+    rows: Vec<Vector>
+}
+
+impl Matrix {
+    /// Create a matrix of zeros with specified size {{0, 0, ..., 0}, ..., {0, 0, ..., 0}}
+    /// 
+    /// # Arguments
+    /// - `rows`: Number of rows
+    /// - `cols`: Number of columns
+    pub fn zeros(rows: usize, cols: usize) -> Matrix {
+        let row = Vector::zeros(cols);
+        let row_list = vec![row; rows];
+        return Matrix { rows: row_list };
+    }
+
+    pub fn to_string(&self) -> String {
+        let row_count = self.rows.len();
+        let mut s = "[".to_owned();
+
+        for i in 0..row_count {
+            s.push_str(&self.rows[i].to_string());
+            if i < row_count - 1 {
+                s.push_str(",\n ");
+            }
+        }
+
+        s.push(']');
         return s;
     }
 }

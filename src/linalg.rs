@@ -18,18 +18,6 @@ pub fn transform(m: &Vec<Vec<f64>>, v: &Vec<f64>) -> Vec<f64> {
 }
 
 
-/// Create a matrix of zeros
-pub fn mzeros(rows: usize, cols: usize) -> Vec<Vec<f64>> {
-    let row = zeros(cols);
-    return vec![row; rows];
-}
-
-/// Create a matrix of ones
-pub fn mones(rows: usize, cols: usize) -> Vec<Vec<f64>> {
-    let row = ones(cols);
-    return vec![row; rows];
-}
-
 
 /// Create a vector with specified components
 /// 
