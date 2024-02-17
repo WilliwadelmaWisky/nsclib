@@ -27,4 +27,16 @@ let first = df(f, 2.0);
 let second = d2f(f, 2.0);
 ```
 
-The `first` variable now contains the value of the fisrt derivative `12` and the `second` variable contains the value of the second derivative `6`.
+The `first` variable now contains the value of the first derivative `12` and the `second` variable contains the value of the second derivative `6`.
+
+### Integral
+Calculate an integral of a function `f(x) = 3 * x^2` at `0 <= x <= 3`.
+
+```rust
+use nsclib::integral;
+
+let f: fn(f64) -> f64 = |x| 3.0 * x.powi(2);
+let int = integral(f, 0.0, 3.0);
+```
+
+The `int` variable now contains the value of the integral `27`.

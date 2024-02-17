@@ -83,17 +83,19 @@ pub fn divergence(f: fn(&Vector) -> f64, x: &Vector) -> f64 {
 /// - `f`: Function
 /// - `x0`: Start point
 /// - `x1`: End point
-/// - `h`: Small value
 /// 
 /// # Examples
 /// 
-pub fn integral(f: fn(f64) -> f64, x0: f64, x1: f64, h: f64) -> f64 {
+pub fn integral(f: fn(f64) -> f64, x0: f64, x1: f64) -> f64 {
+    let h = 0.000_001;
     let num = 1 + ((x1 - x0) / h).floor() as usize;
     let x_values = linspace(x0, x1, num);
     let mut sum = 0.0;
+
     for x in x_values {
         sum += f(x);
     }
+
     return h * sum;
 }
 
@@ -110,6 +112,7 @@ pub fn integral(f: fn(f64) -> f64, x0: f64, x1: f64, h: f64) -> f64 {
 pub fn linspace(start: f64, end: f64, num: usize) -> Vec<f64> {
     let mut v: Vec<f64> = zeros(num);
     let h: f64 = (end - start) / (num - 1) as f64;
+
     for i in 0..num {
         v[i] = start + i as f64 * h;
     }
@@ -173,6 +176,31 @@ impl Vector {
         }
 
         return Vector { components: component_list };
+    }
+
+    /// Create a 2d-vector
+    /// 
+    /// # Arguments
+    /// - `x`: x-component of the vector
+    /// - `y`: y-component of the vector
+    /// 
+    /// # Examples
+    /// 
+    pub fn new_2d(x: f64, y: f64) -> Vector {
+        return Vector::new(&[x, y]);
+    }
+
+    /// Create a 3d-vector
+    /// 
+    /// # Arguments
+    /// - `x`: x-component of the vector
+    /// - `y`: y-component of the vector
+    /// - `z`: z-component of the vector
+    /// 
+    /// # Examples
+    /// 
+    pub fn new_3d(x: f64, y: f64, z: f64) -> Vector {
+        return Vector::new(&[x, y, z]);
     }
 
     /// Create a vector of zeros with specified length (0, 0, ..., 0)
